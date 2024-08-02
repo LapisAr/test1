@@ -5,7 +5,7 @@ terraform {
 }
 
 inputs = {
-  latitudesh_token   = "9027758ee6142752e8601ca8153c3b915eec"
+  latitudesh_token   = "input your api key"
   hostname           = "Tu minh test"
   plan               = "c2.small.x86"
   region             = "TYO"
