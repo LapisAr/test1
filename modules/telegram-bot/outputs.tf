@@ -1,5 +1,5 @@
 output "server-ip" {
-  value = latitudesh_server.server.primary_ipv4
+  value = latitudesh_server.telegram-bots-server.primary_ipv4
 }
 
 output "ssh_key" {
