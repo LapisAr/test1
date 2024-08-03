@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solana-amm-service
+  namespace: support
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solana-amm-service
+  template:
+    metadata:
+      labels:
+        app: solana-amm-service
+    spec:
+      containers:
+        - name: solana-amm-service
+          image: 264790361319.dkr.ecr.ap-southeast-1.amazonaws.com/solana-amm-service:0.0.3-alpha
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: APP_PORT
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: LOG_LEVEL
+            - name: SOLANA_WSS_RPC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: SOLANA_WSS_RPC_URL
+            - name: SOLANA_RPC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: SOLANA_RPC_URL
+            - name: SHYFT_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: solana-amm-secret
+                  key: SHYFT_API_KEY
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: REDIS_PORT
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: solana-amm-secret
+                  key: REDIS_PASSWORD
+            - name: REDIS_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: REDIS_DB
+            - name: BULL_REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: BULL_REDIS_HOST
+            - name: BULL_REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: BULL_REDIS_PORT
+            - name: BULL_REDIS_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: BULL_REDIS_DB
+            - name: BULL_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: solana-amm-secret
+                  key: BULL_REDIS_PASSWORD
+          volumeMounts:
+            - name: solana-amm-service-storage
+              mountPath: /app/logs
+      imagePullSecrets:
+        - name: ecr-secret
+      volumes:
+        - name: solana-amm-service-storage
+          persistentVolumeClaim:
+            claimName: solana-amm-service-pvc
