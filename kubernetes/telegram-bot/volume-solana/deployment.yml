@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sol-volume-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sol-volume-bot
+  template:
+    metadata:
+      labels:
+        app: sol-volume-bot
+    spec:
+      containers:
+        - name: sol-volume-bot
+          image: 264790361319.dkr.ecr.ap-southeast-1.amazonaws.com/sol-volume-bot:buy-sell-same-tx-maico-v0.1.30.0
+          env:
+            - name: TELEGRAM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: sol-volume-bot-secret
+                  key: TELEGRAM_TOKEN
+            - name: ENCRYPT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sol-volume-bot-secret
+                  key: ENCRYPT_SECRET_KEY
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sol-volume-bot-secret
+                  key: DB_PASSWORD
+            - name: SHYFT_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sol-volume-bot-secret
+                  key: SHYFT_API_KEY
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sol-volume-bot-secret
+                  key: REDIS_PASSWORD
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: DB_HOST
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: sol-volume-bot-secret
+                  key: DB_USERNAME
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: DB_DATABASE
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: DB_PORT
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: NODE_ENV
+            - name: DB_SCHEMA
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: DB_SCHEMA
+            - name: RPC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: RPC_URL
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: LOG_LEVEL
+            - name: NEW_PAIR_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: NEW_PAIR_SERVICE_URL
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: REDIS_PORT
+            - name: REDIS_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: sol-volume-bot-config
+                  key: REDIS_DB
+          volumeMounts:
+            - name: log-storage
+              mountPath: /usr/src/app/logs
+      imagePullSecrets:
+        - name: ecr-secret
+      volumes:
+        - name: log-storage
+          persistentVolumeClaim:
+            claimName: sol-volume-bot-logs
