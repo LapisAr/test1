@@ -6,7 +6,7 @@ data:
   DB_HOST: ""
   DB_DATABASE: "sol-vol-bot"
   DB_PORT: "5432"
-  NODE_ENV: "staging"
+  NODE_ENV: "production"
   DB_SCHEMA: "degen"
   RPC_URL: "https://mcca.rpcpool.com/dd7384ab-8da4-4030-9819-fb1740402449"
   REDIS_HOST: "redis.common.svc.cluster.local"
