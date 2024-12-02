@@ -4,7 +4,7 @@ metadata:
   name: solana-amm-service
   namespace: support
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: solana-amm-service
