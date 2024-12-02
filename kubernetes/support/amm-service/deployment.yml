@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: solana-amm-service
-          image: solana-amm-service:latest
+          image: solana-amm-service:01
           ports:
             - containerPort: 3000
           env:
