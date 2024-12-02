@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: solana-amm-service
-          image: 264790361319.dkr.ecr.ap-southeast-1.amazonaws.com/solana-amm-service:0.0.3-alpha
+          image: solana-amm-service:latest
           ports:
             - containerPort: 3000
           env:
