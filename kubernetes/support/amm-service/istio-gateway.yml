@@ -1,11 +1,13 @@
-apiVersion: install.istio.io/v1alpha1
-kind: IstioOperator
-spec:
-  profile: remote 
-  components:
-    ingressGateways:
-    - name: istio-ingressgateway
-      enabled: true
-    egressGateways:
-    - name: istio-egressgateway
-      enabled: true
+# apiVersion: install.istio.io/v1alpha1
+# kind: IstioOperator
+# spec:
+#   profile: remote 
+#   components:
+#     ingressGateways:
+#     - name: istio-ingressgateway
+#       enabled: true
+#     egressGateways:
+#     - name: istio-egressgateway
+#       enabled: true
+#     crdInstallation:
+#       enabled: true
