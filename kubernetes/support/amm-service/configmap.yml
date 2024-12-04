@@ -14,3 +14,4 @@ data:
   BULL_REDIS_HOST: "redis.common.svc.cluster.local"
   BULL_REDIS_PORT: "6379"
   BULL_REDIS_DB: "1"
+  RPC_NAME: Triton

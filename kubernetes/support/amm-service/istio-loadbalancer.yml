@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: solana-amm-destination-rule
+spec:
+  host: solana-amm-service
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: sol-amm-virtual-service
+spec:
+  hosts:
+  - solana-amm-service
+  http:
+  - route:
+    - destination:
+        host: solana-amm-service

@@ -79,6 +79,11 @@ spec:
                 configMapKeyRef:
                   name: solana-amm-config
                   key: BULL_REDIS_DB
+            - name: RPC_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: solana-amm-config
+                  key: RPC_NAME
             - name: BULL_REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
